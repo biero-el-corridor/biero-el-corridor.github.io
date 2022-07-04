@@ -6,7 +6,7 @@ author:
   url: "https://ashishchaudhary.in/hacker-blog"
 
 baseurl: /
-
+url: "https://biero.github.io"
 source: .
 destination: ./_site
 permalink: /:title
