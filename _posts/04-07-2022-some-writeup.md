@@ -1,5 +1,5 @@
 ---
-title: "[WriteUp] Cyberdefender : seized"
+title: Cyberdefender | seized
 published: true
 ---
 
