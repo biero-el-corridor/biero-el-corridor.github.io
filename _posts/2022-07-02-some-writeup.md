@@ -1,4 +1,5 @@
 ---
+layout: post
 title: Cyberdefender | seized
 published: true
 ---
@@ -6,6 +7,8 @@ published: true
 Text can be **bold**, _italic_, ~~strikethrough~~ or `keyword`.
 
 
-```python
-print("this ")
 ```
+this is a comand in a CLI
+```
+
+![this is a pisture](/assets/Q3-seized.png)
