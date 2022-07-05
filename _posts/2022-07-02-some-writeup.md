@@ -61,8 +61,8 @@ The command.
 ```
 python2 volatility/vol.py -f c73-EZDump/dump.mem --profile=LinuxCentos7_3_10_1062x64 linux_pstree
 ```
+<img src="/assets/Q3-seized.png" alt="Kitten" title="img Q3" width="50%" height="50%" /> 
 
-![ncat ? weird isn't it ?](/assets/Q3-seized.png)
 ncat ? weird isn't it ?
 
 ## [](#header-2) Q4 : The attacker downloaded a backdoor to gain persistence. What is the hidden message in this backdoor?
@@ -83,6 +83,6 @@ Go to the url and you have the flag.
 
 To view the content of the current network exchanges at the time of the dump, the linux_netstat command exists.
 
-![12345 that some weird port](/assets/Q3-seized.png)
+![12345 that some weird port](/assets/Q5-seized.png)
 
 12345 that some weird port. 
