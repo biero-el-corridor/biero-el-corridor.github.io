@@ -152,7 +152,7 @@ python2 volatility/vol.py -f c73-EZDump/dump.mem --profile=LinuxCentos7_3_10_106
 
 And Tadaaaaa you have the crc65 key 
 
-![crc65 key](/assets/seized/seized/Q9-seized.png)
+![crc65 key](/assets/seized/Q9-seized.png)
 
 # [](#header-1) Ressource
 Here some ressource in the subject
