@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Cyberdefender | seized
+title: Cyberdefender | seized Writeup
 published: true
 ---
 
@@ -37,14 +37,17 @@ Great now we have our custom profiles.
 ## [](#header-2) Q1 : What is the CentOS version installed on the machine?
 
 We can see that the file name is "Centos7.3.10.1062". 
+
 Spoiler it is not the name of the version.
+
 The real answer is on the wikipedia page of centos we can see that the name corresponds to the version 7.7.1908 of centos 
 
 ## [](#header-2) Q2 : There is a command containing a strange message in the bash history. Will you be able to read it?
 
 Finally, let's start digging. 
 
-Here is the command we will use 
+Here is the command we will use. 
+
 python2 volatility/vol.py -f c73-EZDump/dump.mem --profile=LinuxCentos7_3_10_1062x64 linux_bash
 
 - python2 volatility/vol.py = launch volatility. 
@@ -83,6 +86,70 @@ Go to the url and you have the flag.
 
 To view the content of the current network exchanges at the time of the dump, the linux_netstat command exists.
 
+```
+python2 volatility/vol.py -f c73-EZDump/dump.mem --profile=LinuxCentos7_3_10_1062x64 linux_netstat
+```
+
 ![12345 that some weird port](/assets/Q5-seized.png)
 
 12345 that some weird port. 
+
+## [](#header-2) Q6 : What is the first command that the attacker executed? 
+
+Let's see, we have an attacker who used ncat to connect and then downloaded a payload written in python.
+
+The logical continuation is to look for the commands to be executed with python. 
+
+The command linux_psaux of volatility allows to list the commands executed with the associated process. 
+
+```
+python2 volatility/vol.py -f c73-EZDump/dump.mem --profile=LinuxCentos7_3_10_1062x64 linux_psaux 
+```
+
+## [](#header-2) Q7 : After changing the user password, we found that the attacker still has access. Can you find out how?
+
+Now we are talking about persistence under Linux, so let's try to find the most common method of persistence, ![here](https://www.linode.com/docs/guides/linux-red-team-persistence-techniques/) we have some good examples. 
+
+We also know via question 3 that the attacker has launched a bash and vim. The idea is to extract these two processes and see if there is any trace of cron tab or rsa key creations.  
+
+![so here we have some rsa key](/assets/Q7-seized.png)
+
+So here we have some rsa key. 
+
+## [](#header-2) Q8 : What is the name of the rootkit that the attacker used?
+
+Now the challenge tells us about a rootkit. Try to understand how a rootkit works [here](https://resources.infosecinstitute.com/topic/types-of-rootkits/) we have an explanation of how a type of rootkit that hooks a syscall works.
+
+The command on volatility to see if a syscall has been hooked is linux_check_syscall. 
+
+```
+python2 volatility/vol.py -f c73-EZDump/dump.mem --profile=LinuxCentos7_3_10_1062x64 linux_check_syscall
+```
+
+Here they have one.
+
+```
+64bit         88                          0xffffffffc0a12470 HOOKED: sysemptyrect/syscall_callback 
+```
+
+This is a little bit treaky but the name of the rootkit is the name of the syscall.  
+
+## [](#header-2) Q9 : The rootkit uses crc65 encryption. What is the key?
+
+Now that we know the kernel hook name we can see these details with the linux_lsmod command. 
+
+But first you need to know the id of the hook with linux_lsmod. 
+
+```
+ffffffffc0a14020 sysemptyrect 12904
+```
+
+After that, specify the kernel module ID with the -P command
+
+```
+python2 volatility/vol.py -f c73-EZDump/dump.mem --profile=LinuxCentos7_3_10_1062x64 linux_lsmod -P 12904
+```
+
+And Tadaaaaa you have the crc65 key 
+
+![crc65 key](/assets/seized/Q9-seized.png)
