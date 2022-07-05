@@ -55,7 +55,7 @@ python2 volatility/vol.py -f c73-EZDump/dump.mem --profile=LinuxCentos7_3_10_106
 - --profile=LinuxCentos7_3_1062x64 = the created cutom profile 
 - linux_bash = the command that allows to see the history of bash commands. 
 
-![Q2](/assets/Q2-seized.jpg)
+![Q2](/assets/seized/Q2-seized.jpg)
 
 ## [](#header-2) Q3 : What is the PID of the suspicious process?
 
@@ -64,7 +64,7 @@ The command.
 ```
 python2 volatility/vol.py -f c73-EZDump/dump.mem --profile=LinuxCentos7_3_10_1062x64 linux_pstree
 ```
-<img src="/assets/Q3-seized.png" alt="Kitten" title="img Q3" width="50%" height="50%" /> 
+<img src="/assets/seized/Q3-seized.png" alt="Kitten" title="img Q3" width="50%" height="50%" /> 
 
 ncat ? weird isn't it ?
 
@@ -90,7 +90,7 @@ To view the content of the current network exchanges at the time of the dump, th
 python2 volatility/vol.py -f c73-EZDump/dump.mem --profile=LinuxCentos7_3_10_1062x64 linux_netstat
 ```
 
-![12345 that some weird port](/assets/Q5-seized.png)
+![12345 that some weird port](/assets/seized/Q5-seized.png)
 
 12345 that some weird port. 
 
@@ -112,7 +112,7 @@ Now we are talking about persistence under Linux, so let's try to find the most 
 
 We also know via question 3 that the attacker has launched a bash and vim. The idea is to extract these two processes and see if there is any trace of cron tab or rsa key creations.  
 
-![so here we have some rsa key](/assets/Q7-seized.png)
+![so here we have some rsa key](/assets/seized/Q7-seized.png)
 
 So here we have some rsa key. 
 
@@ -152,4 +152,10 @@ python2 volatility/vol.py -f c73-EZDump/dump.mem --profile=LinuxCentos7_3_10_106
 
 And Tadaaaaa you have the crc65 key 
 
-![crc65 key](/assets/seized/Q9-seized.png)
+![crc65 key](/assets/seized/seized/Q9-seized.png)
+
+# [](#header-1) Ressource
+Here some ressource in the subject
+
+
+[https://eforensicsmag.com/finding-advanced-malware-using-volatility/](https://eforensicsmag.com/finding-advanced-malware-using-volatility/)
