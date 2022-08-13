@@ -17,7 +17,9 @@ The tools used will be the following
 ## [](#header-2) Q1 : What is the transport protocol being used?
 
 To answer this question let's take a look at wireshark and see which protocols are used and which are inherent to VoIP.
+
 We have RTP and SIP. 
+
 These two protocols are based on the UDP transport protocol, as explained in their [wikipedia] page (https://fr.wikipedia.org/wiki/Real-time_Transport_Protocol). 
 
 Awnser: UDP
@@ -29,9 +31,11 @@ For this one, I wasn't very creative, I just started reading articles about VoIP
 ## [](#header-2) Q3 : What is the User-Agent of the victim system? 
 
 this question is a bit more complex. we already talk about User-Agent. 
-so in your head it's ""HTTP"", yes but no. 
+
+So in your head it's ""HTTP"", yes but no. 
 by reading the wikipedia page of [SIP](https://fr.wikipedia.org/wiki/Session_Initiation_Protocol), we realize that SIP used HTTP to build its logics.
 So SIP takes the error code, and the naming of HTTP. 
+
 SIP has also user agents. And as we are in a VoIP challenge we don't talk about HTTP user agent, but about SIP user agent. 
 
 Taking this into account we look for a user agent in the UDP protocol, then we see that the victim is 172.25.105.40 because it is the one who receives the imput. 
@@ -82,7 +86,9 @@ with open("log.txt", "r") as file:
                 to_write.write(line)
 ```
 we remove the obvious mistakes like. 
+
 REGISTER sip:honey.pot.IP.removed SIP/2.0
+
 REGISTER sip:honey.pot.IP.removed;transport=UDP SIP/2.0
 
 And tadaaaa count the number of line. 
@@ -94,8 +100,11 @@ Awnser: 2652
 
 Here we are talking about the "log.txt" file. 
 If we look at the file we can see that there is a user agent on it. 
+
 "User-Agent: friendly-scanner
+
 Looking a little bit more towards the end of the file we can see another user agent. 
+
 "User-Agent: Zoiper rev.6751"
 
 Awnser: Zoiper rev.6751
@@ -105,7 +114,9 @@ Awnser: Zoiper rev.6751
 The 1st free hint for this challenge will help me. 
 Google "SIP requests name
 This [site](https://www.3cx.com/pbx/sip-methods/) explains the different methods used to send instructions. 
+
 Here we realize that it is the INVITE option that allows to establish a session and therefore to register the phone number of the sesisons. 
+
 once this in mind we can look at the RFC that talks about dialing numbers
 https://datatracker.ietf.org/doc/html/rfc4967
 this RFC tells us that the dialed numbers are preceded by the command "sip:". 
@@ -163,6 +174,7 @@ Awnser: 1234
 ## [](#header-2) Q13  :Which RTP packet header field can be used to reorder out of sync RTP packets in the correct sequence?
 
 By doing some google dorks || RTP packet header "timestamp" || whe found this [website](https://www.cs.columbia.edu/~hgs/rtp/faq.html). by searching the word "synchronized" we found that. 
+
 ```txt
 RFC 3550 specifies one media-timestamp in the RTP data header and a mapping between such timestamp and a globally synchronized clock, carried as RTCP timestamp mappings.
 ```
