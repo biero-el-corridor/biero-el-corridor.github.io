@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Cyberdefender | seized Writeup
+title: Cyberdefender | Acoustic Writeup
 published: true
 ---
 
